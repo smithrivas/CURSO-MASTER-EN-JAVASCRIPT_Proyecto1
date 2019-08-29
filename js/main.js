@@ -9,6 +9,7 @@ $(document).ready(function(){
     // Posts
     posts =
     [
+      // Se crea cada post que se quiere insertar en objetos JSON
       {
         tittle: "Prueba de titulo 1",
         date: 'Publicado el '+moment().date()+' de '+moment().locale('es').format('MMMM')+' del año '+moment().format('YYYY'),
@@ -39,6 +40,7 @@ $(document).ready(function(){
 
     // Insertar a través del ciclo foreach los post guardados en el JSON, a través de una plantilla y finalmente con el appen en el ID seleccionado
     posts.forEach((item, index) => {
+      // Se crea una plantilla que posteriormente será insertada a traves de JS
       var post = `
       <article class="post">
         <h2>${item.tittle}</h2>
@@ -47,12 +49,13 @@ $(document).ready(function(){
         <a href="#" class="button-more">Leer más</a>
       </article>
       `;
-      $("#posts").append(post);
+      $("#posts").append(post);   // Se insertan los datos en el campo seleccionado
     });
 
     // Selector de temas
     var theme = $("#theme");
 
+    // Se modifica el href para cambiar el tema
     $("#to-green").click(function(){
       theme.attr("href", "css/green.css")
     });
@@ -74,5 +77,26 @@ $(document).ready(function(){
 
         return false;
     });
+
+    // Login falso
+    $("#login form").submit(function(){             // Se selecciona el DIV del login y el formulario
+      var form_name = $("#form_name").val();        // Se captura el VAL del input nombre y se asigna a una variable
+      localStorage.setItem("form_name", form_name); // Se inserta el valor en el localStorage
+    });
+
+    var form_name = localStorage.getItem("form_name"); // Se consulta el valor en el localStorage
+    if (form_name != null && form_name != "undefined") { // Se valida que no se envíen datos vacios
+      var about_parrafo = $("#about p");
+
+      about_parrafo.html("<br><strong>Bienvenido "+form_name+"</strong> ");   // Se inserta el texto y el valor en el DIV about en el parrafo
+      about_parrafo.append("<a href='#' id='logout'>Cerrar sesión</a>")       // Se crea la opción de cerrar sesión
+
+      $("#login").hide();   // Se oculta el formulario
+
+      $("#logout").click(function(){    // Se selecciona la opción creada anteriormente
+        localStorage.clear();           // Se limpia el localStorage
+        location.reload();              // Se recarga la página
+      });
+    }
 
 });
