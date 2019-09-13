@@ -107,9 +107,19 @@ $(document).ready(function(){
       });
     } // Fin if
 
+
     // ***ACORDEON***
     if (window.location.href.indexOf('about') > -1) {     // Validación de que se encuentre el about
       $('#acordeon').accordion();
+    }
+
+    // ***RELOJ***
+    if (window.location.href.indexOf('reloj') > -1) {     // Validación de que se encuentre el reloj
+
+      setInterval(function(){     // Se repite cada tiempo que se le ordene
+        var reloj = moment().format("hh:mm:ss");
+        $("#reloj").html(reloj);
+      }, 1000)      // Se repite cada segundo
     }
 
 });
