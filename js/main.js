@@ -113,6 +113,7 @@ $(document).ready(function(){
       $('#acordeon').accordion();
     }
 
+
     // ***RELOJ***
     if (window.location.href.indexOf('reloj') > -1) {     // Validación de que se encuentre el reloj
 
@@ -120,6 +121,21 @@ $(document).ready(function(){
         var reloj = moment().format("hh:mm:ss");
         $("#reloj").html(reloj);
       }, 1000)      // Se repite cada segundo
+    }
+
+
+    // ***VALIDACION***
+    if (window.location.href.indexOf('contact') > -1) {     // Validación de que se encuentre el contact
+
+    $("form input[name='date']").datepicker({
+      dateFormat: 'dd/mm/yy'
+    });      // Picker Calendario
+
+    $.validate({
+    lang: 'es',
+    errorMessagePosition: 'top',
+    scrollToTopOnError: true
+    });
     }
 
 });
